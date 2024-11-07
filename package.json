@@ -1,0 +1,15 @@
+{
+  "name": "todayinhistory",
+  "version": "1.0.0",
+  "description": "Quiz for historical events today in history",
+  "main": "./main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andreas Winter",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.1.0"
+  }
+}

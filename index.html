@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" /> -->
+    <title>Today In History</title>
+</head>
+
+<body>
+    <h1 id="headline">Today in history: </h1>
+    <ul id="events"></ul>
+
+    <script>
+        const options = { month: 'long', day: 'numeric' };
+        const today = new Date().toLocaleDateString(undefined, options)
+        document.getElementById('headline').textContent += today;
+        var events = [];
+        fetch("http://history.muffinlabs.com/date")
+            .then((response) => {
+                return response.json()
+            })
+            .then(function (jsonResponse) {
+                events = jsonResponse["data"]["Events"]
+                var ul = document.getElementById("events");
+                events.forEach(event => {
+                    const subLi = document.createElement('li');
+                    subLi.textContent = "Event"
+                    const innerUl = document.createElement('ul');
+                    ul.appendChild(innerUl)
+                    const title = document.createElement('li'); // Create a new <li> element
+                    title.textContent = event.text; // Set the text content of the <li>
+                    const year = document.createElement('li');
+                    year.classList.add('blurred')
+                    year.textContent = event.year;
+                    ul.appendChild(subLi);
+                    subLi.appendChild(innerUl)
+                    innerUl.appendChild(title); // Append the <li> to the <ul>
+                    innerUl.appendChild(year); // Append the <li> to the <ul>
+                    document.querySelectorAll('.blurred').forEach(element => {
+                        element.addEventListener('click', function () {
+                            this.classList.toggle('unblurred');
+                        })
+                    })
+                })
+            });
+
+    </script>
+    <style>
+        .blurred {
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+            width: 4em;
+            height: 1em;
+            background-color: #ccc;
+        }
+
+        .unblurred {
+            filter: blur(0);
+            background-color: white;
+        }
+    </style>
+</body>
+
+</html>
