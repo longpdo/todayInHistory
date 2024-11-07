@@ -5,8 +5,8 @@
     <meta charset="UTF-8" />
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" /> -->
-    <title>Today In History</title>
+        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" /> -->
+    <title>🔎 Today In History 🗿 🏰</title>
 </head>
 
 <body>
@@ -23,30 +23,29 @@
                 return response.json()
             })
             .then(function (jsonResponse) {
-                events = jsonResponse["data"]["Events"]
+                events = jsonResponse.data.Events
                 var ul = document.getElementById("events");
                 events.forEach(event => {
                     const subLi = document.createElement('li');
-                    subLi.textContent = "Event"
-                    const innerUl = document.createElement('ul');
-                    ul.appendChild(innerUl)
-                    const title = document.createElement('li'); // Create a new <li> element
-                    title.textContent = event.text; // Set the text content of the <li>
-                    const year = document.createElement('li');
-                    year.classList.add('blurred')
-                    year.textContent = event.year;
+                    const year = document.createElement('div');
+                    year.textContent = event.year + ":";
+                    year.classList.add('blurred', 'year');
+                    const title = document.createElement('div');
+                    title.textContent = event.text;
+                    const eventDiv = document.createElement('div');
+                    eventDiv.classList.add('event')
+                    eventDiv.appendChild(year)
+                    eventDiv.appendChild(title)
+                    subLi.appendChild(eventDiv);
                     ul.appendChild(subLi);
-                    subLi.appendChild(innerUl)
-                    innerUl.appendChild(title); // Append the <li> to the <ul>
-                    innerUl.appendChild(year); // Append the <li> to the <ul>
                     document.querySelectorAll('.blurred').forEach(element => {
                         element.addEventListener('click', function () {
-                            this.classList.toggle('unblurred');
+                            this.classList.remove('blurred')
+                            this.classList.add('unblurred');
                         })
                     })
                 })
             });
-
     </script>
     <style>
         .blurred {
@@ -55,14 +54,31 @@
             -o-filter: blur(5px);
             -ms-filter: blur(5px);
             filter: blur(5px);
-            width: 4em;
-            height: 1em;
             background-color: #ccc;
         }
 
         .unblurred {
             filter: blur(0);
-            background-color: white;
+        }
+
+        .year {
+            margin-right: 2em;
+            width: 4ch;
+            height: 1em;
+        }
+
+        .event {
+            display: flex;
+        }
+
+        body {
+            font-family: sans-serif;
+            background-color: #001f3f;
+            color: white;
+        }
+
+        li {
+            margin: 1em 0 1em 0;
         }
     </style>
 </body>
