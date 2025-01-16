@@ -28,7 +28,7 @@
         const today = new Date().toLocaleDateString(undefined, options)
         document.getElementById('headline').textContent += today;
         var events = [];
-        fetch("http://history.muffinlabs.com/date")
+        fetch("https://today.zenquotes.io/api")
             .then((response) => {
                 return response.json()
             })
@@ -36,12 +36,13 @@
                 events = shuffleArray(jsonResponse.data.Events)
                 var ul = document.getElementById("events");
                 events.forEach(event => {
+                    const parts = event.text.split(";");
                     const subLi = document.createElement('li');
                     const year = document.createElement('div');
-                    year.textContent = event.year + ":";
+                    year.textContent = parts[0];
                     year.classList.add('blurred', 'year');
                     const title = document.createElement('div');
-                    title.textContent = event.text;
+                    title.textContent = parts[1];
                     const eventDiv = document.createElement('div');
                     eventDiv.classList.add('event')
                     eventDiv.appendChild(year)
