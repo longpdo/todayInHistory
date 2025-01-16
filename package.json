@@ -5,11 +5,16 @@
   "main": "./main.js",
   "scripts": {
     "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package-mac": "electron-packager . TodayInHistory --platform=darwin --arch=arm64 --icon=icon.png --out=output --overwrite=true --prune --asar",
+    "package-win": "electron-packager . TodayInHistory --platform=win32 --arch=x64 --icon=icon.png --out=output --overwrite=true --prune --asar",
+    "package": "npm run package-mac && npm run package-win"
   },
   "author": "Andreas Winter",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^33.1.0"
+    "@electron/packager": "^18.3.5",
+    "electron": "^33.1.0",
+    "electron-packager": "^17.1.2"
   }
 }
