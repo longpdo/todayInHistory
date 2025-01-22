@@ -39,7 +39,7 @@
                     const parts = event.text.split(";");
                     const subLi = document.createElement('li');
                     const year = document.createElement('div');
-                    year.textContent = parts[0];
+                    year.textContent = parts[0].split(" ")[0];
                     year.classList.add('blurred', 'year');
                     const title = document.createElement('div');
                     title.textContent = parts[1];
