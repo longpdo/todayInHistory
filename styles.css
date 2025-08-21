@@ -1,0 +1,35 @@
+:root {
+  --bg: #062844;
+  --fg: #ffffff;
+  --muted: #b9c2cf;
+  --link: #b9c2cf;
+}
+
+body {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--fg);
+  margin: 24px;
+}
+
+h1#headline { text-align: center; margin: 0 0 8px; }
+#pickerLine  { text-align: center; color: var(--muted); margin: 0 0 20px; }
+
+ol#events { list-style: decimal inside; padding-left: 0; margin: 0; max-width: 80ch; }
+li.event-item { margin: 1em 0; }
+
+.event { display: inline; line-height: 1.5; overflow-wrap: anywhere; white-space: normal; }
+.year { font-weight: 600; margin-right: .5em; cursor: pointer; user-select: none; }
+
+.year.blurred {
+  -webkit-filter: blur(6px);
+  filter: blur(6px);
+  background-color: rgba(255,255,255,0.08);
+  border-radius: 4px;
+  padding: 0 .25em;
+}
+
+.footer-actions { margin-top: 6px; font-size: 0.9rem; color: var(--muted); }
+
+.footer-actions a { color: var(--link); text-decoration: underline; margin-left: 8px; }
+.footer-actions a.copy-link { text-decoration: none; margin-left: 0; margin-right: 8px; }

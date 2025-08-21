@@ -1,97 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-        <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" /> -->
-    <title>🔎 Today In History 🗿 🏰</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src https://today.zenquotes.io; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; worker-src 'none'; navigate-to https:;">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Today In History</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
-    <h1 id="headline">Today in history: </h1>
-    <ul id="events"></ul>
-
-    <script>
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                // Generate a random index from 0 to i
-                const j = Math.floor(Math.random() * (i + 1));
-
-                // Swap elements at indices i and j
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-            return array;
-        }
-        const options = { month: 'long', day: 'numeric' };
-        const today = new Date().toLocaleDateString(undefined, options)
-        document.getElementById('headline').textContent += today;
-        var events = [];
-        fetch("https://today.zenquotes.io/api")
-            .then((response) => {
-                return response.json()
-            })
-            .then(function (jsonResponse) {
-                events = shuffleArray(jsonResponse.data.Events)
-                var ul = document.getElementById("events");
-                events.forEach(event => {
-                    const parts = event.text.split(";");
-                    const subLi = document.createElement('li');
-                    const year = document.createElement('div');
-                    year.textContent = parts[0].split(" ")[0];
-                    year.classList.add('blurred', 'year');
-                    const title = document.createElement('div');
-                    title.textContent = parts[1];
-                    const eventDiv = document.createElement('div');
-                    eventDiv.classList.add('event')
-                    eventDiv.appendChild(year)
-                    eventDiv.appendChild(title)
-                    subLi.appendChild(eventDiv);
-                    ul.appendChild(subLi);
-                    document.querySelectorAll('.blurred').forEach(element => {
-                        element.addEventListener('click', function () {
-                            this.classList.remove('blurred')
-                            this.classList.add('unblurred');
-                        })
-                    })
-                })
-            });
-    </script>
-    <style>
-        .blurred {
-            -webkit-filter: blur(5px);
-            -moz-filter: blur(5px);
-            -o-filter: blur(5px);
-            -ms-filter: blur(5px);
-            filter: blur(5px);
-            background-color: #ccc;
-        }
-
-        .unblurred {
-            filter: blur(0);
-        }
-
-        .year {
-            margin-right: 2em;
-            width: 4ch;
-            height: 1em;
-        }
-
-        .event {
-            display: flex;
-        }
-
-        body {
-            font-family: sans-serif;
-            background-color: #001f3f;
-            color: white;
-        }
-
-        li {
-            margin: 1em 0 1em 0;
-        }
-    </style>
+  <h1 id="headline">Today in history: </h1>
+  <div id="pickerLine"></div>
+  <ol id="events"></ol>
+  <script src="renderer.js" defer></script>
 </body>
-
 </html>
