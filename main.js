@@ -38,7 +38,15 @@ function createWindow () {
 // Deny all permissions
 app.whenReady().then(() => {
   const ses = session.defaultSession;
-  ses.setPermissionRequestHandler((_wc, _perm, callback) => callback(false));
+  ses.setPermissionRequestHandler((wc, permission, callback) => {
+    try {
+      const url = new URL(wc.getURL());
+      if (url.protocol === 'file:' && permission === 'clipboard-sanitized-write') {
+        return callback(true);
+      }
+    } catch {}
+    return callback(false);
+  });
   app.on('web-contents-created', (_e, contents) => {
     // Disallow <webview>
     contents.on('will-attach-webview', (e) => e.preventDefault());
